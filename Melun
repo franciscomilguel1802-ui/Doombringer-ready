@@ -47,3 +47,44 @@ hat[1].CFrame = cf:Inverse() * char['Right Arm'].CFrame
 wait(2)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/franciscomilguel1802-ui/Doombringer-modded-limb/refs/heads/main/Mr"))()
+local Players = game:GetService("Players")
+
+local function applyTag(character)
+    local head = character:WaitForChild("Head")
+    if head:FindFirstChild("OwnerTag") then return end
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "OwnerTag"
+    billboard.Size = UDim2.new(0, 220, 0, 50)
+    billboard.StudsOffset = Vector3.new(0, 2.5, 0)
+    billboard.AlwaysOnTop = true
+
+    local text = Instance.new("TextLabel")
+    text.Size = UDim2.new(1, 0, 1, 0)
+    text.BackgroundTransparency = 1
+    text.Text = "Script Owner/Mr eyes omg?!?!"
+    text.TextScaled = true
+    text.Font = Enum.Font.Arcade
+    text.TextColor3 = Color3.fromRGB(255, 0, 0)
+    text.TextStrokeTransparency = 0.5
+    text.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    text.Parent = billboard
+
+    billboard.Parent = head
+end
+
+local function onPlayer(player)
+    if player.Name ~= "miguel1297210" then return end
+    player.CharacterAdded:Connect(applyTag)
+    if player.Character then
+        applyTag(player.Character)
+    end
+end
+
+for _, player in ipairs(Players:GetPlayers()) do
+    onPlayer(player)
+end
+
+Players.PlayerAdded:Connect(onPlayer)
+
+-- (Mini addition) Owner tag 
